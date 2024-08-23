@@ -1,3 +1,5 @@
+@import "reset.css";
+
 /* media query defaults if I need them */
 /* sm (640px)	max-width: 640px;
 md (768px)	max-width: 768px;
@@ -5,7 +7,9 @@ lg (1024px)	max-width: 1024px;
 xl (1280px)	max-width: 1280px;
 2xl (1536px)	max-width: 1536px; */
 
+/* custom variables and theming */
 :root {
+  /* colors */
   --zinc100: #f4f4f5;
   --zinc800: #27272A;
   /* dark bg accents */
@@ -16,6 +20,7 @@ xl (1280px)	max-width: 1280px;
   --zinc600: #52525b;
   --umber: #966538;
   --fern: #4A7A56;
+  /* fonts */
   --sans: "Figtree Variable", sans-serif;
   --display: "Noto Serif Variable", serif;
 }
@@ -36,70 +41,17 @@ xl (1280px)	max-width: 1280px;
   --accentGreen: var(--fern);
 }
 
-/* CSS Reset from Josh Comeau */
-/*
-  1. Use a more-intuitive box-sizing model.
-*/
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-/*
-  2. Remove default margin
-*/
-* {
-  margin: 0;
-}
-/*
-  Typographic tweaks!
-  3. Add accessible line-height
-  4. Improve text rendering
-*/
+/* global site styles */
 body {
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-/*
-  5. Improve media defaults
-*/
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  height: auto;
-}
-/*
-  6. Remove built-in form typography styles
-*/
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-/*
-  7. Avoid text overflows
-*/
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-}
-/*
-  8. Create a root stacking context
-*/
-#root,
-#__next {
-  isolation: isolate;
+  font-family: var(--sans);
+  background: var(--background);
+  color: var(--text);
+  font-size: 18px;
 }
 
-:root {
-  block-size: 100%;
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  color: var(--accentTan);
 }

@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { ref } from "vue";
-  import "../styles.css";
 
   const isPressed = ref(true);
   const themeValue = ref("dark");
@@ -61,17 +60,16 @@
     border-radius: 50%;
     width: 2.25rem;
     height: 2.25rem;
-    margin: 1rem auto;
+    margin: 1rem auto;  
+  }
 
-    & svg {
-      width: 1.5rem;
-      height: 1.5rem;
-      color: var(--text);
-      
-      &:hover {
-        color: var(--accentTan);
-      }
-    }
+  .theme-toggle svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--text);  
+  }
 
+  .theme-toggle svg:hover {
+    color: var(--accentTan);
   }
 </style>
