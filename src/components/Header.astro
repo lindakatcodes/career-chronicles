@@ -34,8 +34,8 @@ import ThemeSwitch from "./ThemeSwitch.vue";
     height: 0.125rem;
     width: 2rem;
 
-    &::before,
-    &::after {
+    &::before {
+      top: 0.375rem;
       content: "";
       background: var(--text);
       display: block;
@@ -45,12 +45,15 @@ import ThemeSwitch from "./ThemeSwitch.vue";
       transition: all 0.2s ease-out;
     }
 
-    &::before {
-      top: 0.375rem;
-    }
-
     &::after {
       top: -0.375rem;
+      content: "";
+      background: var(--text);
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      transition: all 0.2s ease-out;
     }
 
     &.menu-open {
