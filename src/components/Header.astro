@@ -33,42 +33,42 @@ import ThemeSwitch from "./ThemeSwitch.vue";
     position: relative;
     height: 0.125rem;
     width: 2rem;
+  }
 
-    &::before {
-      top: 0.375rem;
-      content: "";
-      background: var(--text);
-      display: block;
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      transition: all 0.2s ease-out;
-    }
+  .line::before {
+    top: 0.375rem;
+    content: "";
+    background: var(--text);
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transition: all 0.2s ease-out;
+  }
 
-    &::after {
-      top: -0.375rem;
-      content: "";
-      background: var(--text);
-      display: block;
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      transition: all 0.2s ease-out;
-    }
+  .line::after {
+    top: -0.375rem;
+    content: "";
+    background: var(--text);
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transition: all 0.2s ease-out;
+  }
 
-    &.menu-open {
-      background: transparent;
+  .line.menu-open {
+    background: transparent;
+  }
 
-      &::before {
-        transform: rotate(-45deg);
-        top: 0;
-      }
+  .line.menu-open::before {
+    transform: rotate(-45deg);
+    top: 0;
+  }
 
-      &::after {
-        transform: rotate(45deg);
-        top: 0;
-      }
-    }
+  .line.menu-open::after {
+    transform: rotate(45deg);
+    top: 0;
   }
 
   .items {
@@ -80,10 +80,10 @@ import ThemeSwitch from "./ThemeSwitch.vue";
     overflow: hidden;
     max-width: 0;
     transition: max-width 0.4s ease-in-out;
+  }
 
-    &.menu-open {
-      max-width: 100%;
-    }
+  .items.menu-open {
+    max-width: 100%;
   }
 
   @media (min-width: 768px) {
