@@ -1,0 +1,39 @@
+---
+// Supports weights 300-900
+import "@fontsource-variable/figtree";
+// Supports weights 100-900
+import "@fontsource-variable/noto-serif";
+import "../styles.css";
+import { ViewTransitions } from "astro:transitions";
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+  <body>
+    <slot />
+
+    <style is:global>
+      body {
+        font-family: var(--sans);
+        background: var(--background);
+        color: var(--text);
+        font-size: 18px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--display);
+        color: var(--accentTan);
+      }
+    </style>
+  </body>
+</html>

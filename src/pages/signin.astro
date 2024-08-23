@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import RootLayout from "../layouts/RootLayout.astro";
 
 const { cookies, redirect } = Astro;
 
@@ -11,7 +11,7 @@ if (accessToken && refreshToken) {
 }
 ---
 
-<Layout title="Sign in">
+<RootLayout title="Sign in">
   <h1>Sign in</h1>
   <p>New here? <a href="/register">Create an account</a></p>
   <form action="/api/auth/signin" method="post">
@@ -21,4 +21,4 @@ if (accessToken && refreshToken) {
     <input type="password" name="password" id="password" />
     <button type="submit">Login</button>
   </form>
-</Layout>
+</RootLayout>

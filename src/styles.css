@@ -1,0 +1,105 @@
+/* media query defaults if I need them */
+/* sm (640px)	max-width: 640px;
+md (768px)	max-width: 768px;
+lg (1024px)	max-width: 1024px;
+xl (1280px)	max-width: 1280px;
+2xl (1536px)	max-width: 1536px; */
+
+:root {
+  --zinc100: #f4f4f5;
+  --zinc800: #27272A;
+  /* dark bg accents */
+  --zinc300: #D4D4D8;
+  --butterscotch: #DA9B52;
+  --shamrock: #619A6E;
+  /* light bg accents */
+  --zinc600: #52525b;
+  --umber: #966538;
+  --fern: #4A7A56;
+  --sans: "Figtree Variable", sans-serif;
+  --display: "Noto Serif Variable", serif;
+}
+
+[data-theme="dark"] {
+  --background: var(--zinc800);
+  --text: var(--zinc100);
+  --accentGray: var(--zinc300);
+  --accentTan: var(--butterscotch);
+  --accentGreen: var(--shamrock);
+}
+
+[data-theme="light"] {
+  --background: var(--zinc100);
+  --text: var(--zinc800);
+  --accentGray: var(--zinc600);
+  --accentTan: var(--umber);
+  --accentGreen: var(--fern);
+}
+
+/* CSS Reset from Josh Comeau */
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+/*
+  5. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  height: auto;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
+  8. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+
+:root {
+  block-size: 100%;
+}

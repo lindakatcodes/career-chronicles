@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import RootLayout from "../layouts/RootLayout.astro";
 import { supabase } from "../lib/supabase";
 
 const { cookies, redirect } = Astro;
@@ -30,10 +30,10 @@ if (error) {
 const email = data.user?.email;
 ---
 
-<Layout title="dashboard">
+<RootLayout title="dashboard">
   <h1>Welcome {email}</h1>
   <p>We are happy to see you here</p>
   <form action="/api/auth/signout">
     <button type="submit">Sign out</button>
   </form>
-</Layout>
+</RootLayout>

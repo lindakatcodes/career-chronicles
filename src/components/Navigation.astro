@@ -1,0 +1,37 @@
+---
+
+---
+
+<nav>
+  <a href="/">Home</a>
+  <a href="/signin">Sign In</a>
+</nav>
+
+<style>
+  nav {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+
+    & a {
+      font-family: var(--display);
+      color: var(--text);
+      font-weight: bold;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+      transition: all 0.15s ease-in;
+
+      &:hover {
+        color: var(--accentGreen);
+      }
+    }
+  }
+
+  @container (min-width: 768px) {
+    nav {
+      flex-direction: row;
+    }
+  }
+</style>
