@@ -60,13 +60,20 @@
     border-radius: 50%;
     width: 2.25rem;
     height: 2.25rem;
-    margin: 1rem auto;  
+    margin: 0 auto;
+    cursor: pointer;
+    transition: border 0.15s ease-in-out;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--accentTan);
   }
 
   .theme-toggle svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    color: var(--text);  
+    width: calc(100% - 0.125rem);
+    height: calc(100% - 0.125rem);
+    color: var(--text);
+    transition: color 0.15s ease-in-out;
   }
 
   .theme-toggle svg:hover {
