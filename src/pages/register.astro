@@ -1,15 +1,123 @@
 ---
 import RootLayout from "../layouts/RootLayout.astro";
+import { POST } from "./api/auth/register.ts";
+
+if (Astro.request.method === "POST") {
+  try {
+    let response = await POST(Astro);
+    const resData = await response.json();
+    if (response.ok) {
+      return Astro.redirect("/verify");
+    } else {
+      throw new Error(resData.message);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
 ---
 
-<RootLayout title="Register">
-  <h1>Register</h1>
-  <p>Already have an account? <a href="/signin">Sign in</a></p>
-  <form action="/api/auth/register" method="post">
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" />
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
-    <button type="submit">Register</button>
+<RootLayout title="Create an account">
+  <h1>Create a new account</h1>
+  <p class="info">
+    Already have an account? <a href="/signin" class="signin">Sign in</a>
+  </p>
+  <form method="post">
+    <div class="email">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required autocomplete="on" />
+    </div>
+    <div class="pw">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        required
+        autocomplete="on"
+        minlength="8"
+      />
+      <p class="help">Passwords must be at least 8 characters.</p>
+    </div>
+    <button type="submit">Create Account</button>
   </form>
 </RootLayout>
+
+<style>
+  h1 {
+    text-align: center;
+    font-size: 1.75rem;
+  }
+
+  .info {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .signin {
+    color: var(--accentGreen);
+    margin-left: 0.5rem;
+  }
+
+  form {
+    padding: 1rem;
+    border: 1px solid var(--accentTan);
+    border-radius: 4px;
+    display: grid;
+    grid-template-areas: "email" "pw" "btn";
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  form div {
+    inline-size: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  form div:last-of-type {
+    margin-bottom: 0.25rem;
+  }
+
+  label {
+    text-transform: uppercase;
+    font-size: 0.875rem;
+  }
+
+  .help {
+    font-size: 0.875rem;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .email {
+    grid-area: email;
+  }
+
+  .pw {
+    grid-area: pw;
+  }
+
+  button {
+    grid-area: btn;
+    background-color: var(--accentGreen);
+    color: var(--background);
+    padding: 0.5rem 0;
+    font-weight: bold;
+    border-color: var(--accentGray);
+  }
+
+  button:focus {
+    outline-color: var(--accentTan);
+  }
+
+  @media (min-width: 768px) {
+    form {
+      max-width: 45dvw;
+      margin: 0 auto;
+    }
+  }
+</style>

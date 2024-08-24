@@ -7,7 +7,10 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const password = formData.get("password")?.toString();
 
   if (!email || !password) {
-    return new Response("Email and password are required", { status: 400 });
+    return new Response(
+      JSON.stringify({ message: "Email and password are required" }),
+      { status: 400 }
+    );
   }
 
   const { error } = await supabase.auth.signUp({
@@ -16,8 +19,13 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   });
 
   if (error) {
-    return new Response(error.message, { status: 500 });
+    return new Response(JSON.stringify({ message: error.message }), {
+      status: 500,
+    });
   }
 
-  return redirect("/signin");
+  return new Response(
+    JSON.stringify({ message: "user successfully created" }),
+    { status: 200 }
+  );
 };

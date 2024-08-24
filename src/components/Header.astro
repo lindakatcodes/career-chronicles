@@ -1,5 +1,6 @@
 ---
 import ThemeSwitch from "./ThemeSwitch.vue";
+const { userStatus } = Astro.props;
 ---
 
 <header>
@@ -9,9 +10,18 @@ import ThemeSwitch from "./ThemeSwitch.vue";
   <div class="items">
     <nav>
       <a href="/">Home</a>
-      <a href="/">Home</a>
     </nav>
-    <a href="/signin" class="auth">Sign In</a>
+    {
+      userStatus ? (
+        <a href="/profile" class="auth">
+          Profile
+        </a>
+      ) : (
+        <a href="/signin" class="auth">
+          Sign In
+        </a>
+      )
+    }
     <ThemeSwitch client:only="vue" />
   </div>
 </header>
@@ -156,7 +166,7 @@ import ThemeSwitch from "./ThemeSwitch.vue";
   }
 </style>
 
-<script>
+<script is:inline>
   const menuToggle = document.querySelector(".menu-btn");
   menuToggle?.addEventListener("click", () => {
     document.querySelector(".items")?.classList.toggle("menu-open");
