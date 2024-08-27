@@ -1,27 +1,68 @@
 ---
+import type { UserMetadata } from "@supabase/supabase-js";
 import RootLayout from "../layouts/RootLayout.astro";
 import { supabase } from "../lib/supabase";
+import { POST } from "./api/auth/update.ts";
 
 const {
   data: { user },
 } = await supabase.auth.getUser();
-let metadata = user?.user_metadata;
-console.log({ metadata });
 
-// will need an endpoint to update user profiles, can use this function to send the data (the email and password should be optional and those updates should be handled differently anyways)
+let metadata: UserMetadata = {};
+let email = "";
 
-// const { data, error } = await supabase.auth.updateUser({
-//   email: "new@email.com",
-//   password: "new-password",
-//   data: { hello: 'world' }
-// })
+if (!user) {
+  Astro.redirect("/signin");
+} else {
+  metadata = user.user_metadata;
+  email = user.email ?? "";
+}
+
+if (Astro.request.method === "POST") {
+  try {
+    let response = await POST(Astro);
+    const resData = await response.json();
+    if (response.ok) {
+      // TODO: add a toast message here to indicate the update happened
+      console.log({ resData });
+    } else {
+      throw new Error(resData.message);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
 ---
 
 <RootLayout title="Profile">
   <h1>Profile</h1>
-  <p>email: {metadata?.email || ""}</p>
-  <p>display name: {metadata?.name || ""}</p>
+  <p>Logged in with the email {email}</p>
+  <form method="POST" class="name-form">
+    <div>
+      <label for="displayname">Display name</label>
+      <input
+        type="text"
+        id="displayname"
+        name="displayname"
+        placeholder={metadata.displayname || ""}
+      />
+    </div>
+    <button type="button" class="cancel">Cancel changes</button>
+    <button type="submit" class="save">Save name change</button>
+  </form>
   <form action="/api/auth/signout">
     <button type="submit">Sign out</button>
   </form>
 </RootLayout>
+
+<style></style>
+
+<script>
+  const cancelBtn = document.querySelector(".cancel");
+  cancelBtn?.addEventListener("click", () => {
+    const nameForm: HTMLFormElement = document.querySelector(".name-form")!;
+    nameForm && nameForm.reset();
+  });
+</script>

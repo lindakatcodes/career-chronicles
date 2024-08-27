@@ -4,6 +4,7 @@ import { supabase } from "../lib/supabase";
 
 const { cookies } = Astro;
 let isLoggedIn = false;
+let username = "";
 
 const accessToken = cookies.get("sb-access-token");
 const refreshToken = cookies.get("sb-refresh-token");
@@ -26,13 +27,19 @@ if (accessToken && refreshToken) {
   }
 
   isLoggedIn = true;
+  if (data.user?.user_metadata.displayname) {
+    username = data.user.user_metadata.displayname;
+  } else if (data.user?.email) {
+    const atIndex = data.user.email.indexOf('@');
+    username = data.user.email.slice(0, atIndex);
+  }
 }
 ---
 
 <RootLayout title="Career Chronicles" userStatus={isLoggedIn}>
-  <h1>Career Chronicles</h1>
   {
     !isLoggedIn && (
+      <h1>Career Chronicles</h1>
       <p>
         Write your story, the way only you can. Know your skills and assemble
         them like building blocks to highlight what makes you special.
@@ -41,7 +48,8 @@ if (accessToken && refreshToken) {
   }
   {
     isLoggedIn && (
-      <p>All the future details will be here soon. You're gonna love it.</p>
+      <h1>Hi <span class="name">{username}!</span></h1>
+      <p>This will be your dashboard, and probably your daily log too. It'll be great.</p>
     )
   }
 </RootLayout>
@@ -57,5 +65,9 @@ if (accessToken && refreshToken) {
     text-align: center;
     max-width: 60dvw;
     margin: 0 auto;
+  }
+
+  .name {
+    text-wrap: nowrap;
   }
 </style>
