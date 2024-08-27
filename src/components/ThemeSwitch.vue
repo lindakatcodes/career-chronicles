@@ -1,17 +1,44 @@
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { ref, onMounted } from "vue";
 
   const isPressed = ref(true);
   const themeValue = ref("dark");
-  document.querySelector("html").setAttribute("data-theme", themeValue.value);
+
+  const localStorageTheme = localStorage.getItem("theme");
+  const systemSettingLight = window.matchMedia(
+    "(prefers-color-scheme: light)"
+  );
+
+  onMounted(() => {
+    let currentThemeSetting = getThemeString(
+      localStorageTheme,
+      systemSettingLight
+    );
+    updatePageTheme(currentThemeSetting);
+  })
 
   const toggleIsPressed = () => {
     isPressed.value = !isPressed.value;
-    themeValue.value === "dark"
-      ? (themeValue.value = "light")
-      : (themeValue.value = "dark");
-    document.querySelector("html").setAttribute("data-theme", themeValue.value);
+    const newTheme = themeValue.value === "dark"
+      ? "light"
+      : "dark";
+    localStorage.setItem("theme", newTheme);
+    updatePageTheme(newTheme);
   };
+
+  function getThemeString(
+    localValue: string | null,
+    systemValue: MediaQueryList
+  ): string {
+    if (localValue !== null) return localValue;
+    if (systemValue.matches) return "light";
+    return "dark";
+  }
+
+  function updatePageTheme(theme: string) {
+    themeValue.value = theme;
+    document.querySelector("html").setAttribute("data-theme", theme);
+  }
 </script>
 
 <template>
