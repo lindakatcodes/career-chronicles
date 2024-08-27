@@ -1,8 +1,10 @@
 <script setup lang="ts">
-  import { ref, onMounted } from "vue";
+  import { ref, onMounted, computed } from "vue";
 
-  const isPressed = ref(true);
   const themeValue = ref("dark");
+  const showDarkIcon = computed(() => {
+  return themeValue.value === 'dark' ? true : false;
+})
 
   const localStorageTheme = localStorage.getItem("theme");
   const systemSettingLight = window.matchMedia(
@@ -18,7 +20,6 @@
   })
 
   const toggleIsPressed = () => {
-    isPressed.value = !isPressed.value;
     const newTheme = themeValue.value === "dark"
       ? "light"
       : "dark";
@@ -48,11 +49,11 @@
     role="switch"
     aria-label="prefer dark theme"
     data-theme-toggle
-    :aria-checked="String(isPressed)"
+    :aria-checked="String(showDarkIcon)"
     @click="toggleIsPressed"
   >
     <svg
-      v-show="!isPressed"
+      v-show="!showDarkIcon"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
@@ -63,7 +64,7 @@
       />
     </svg>
     <svg
-      v-show="isPressed"
+      v-show="showDarkIcon"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
