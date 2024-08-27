@@ -86,9 +86,10 @@
     display: grid;
     place-items: center;
     border-radius: 50%;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 3rem;
+    height: 3rem;
     margin: 0 auto;
+    padding: 0;
     cursor: pointer;
     transition: border 0.15s ease-in-out;
   }
@@ -97,9 +98,16 @@
     border-color: var(--accentTan);
   }
 
+  @media (min-width: 768px) {
+    .theme-toggle {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+  }
+
   .theme-toggle svg {
-    width: calc(100% - 0.125rem);
-    height: calc(100% - 0.125rem);
+    width: calc(100% - 1rem);
+    height: calc(100% - 1rem);
     color: var(--text);
     transition: color 0.15s ease-in-out;
   }
