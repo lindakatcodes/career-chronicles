@@ -166,10 +166,12 @@ const { userStatus } = Astro.props;
   }
 </style>
 
-<script is:inline>
-  const menuToggle = document.querySelector(".menu-btn");
-  menuToggle?.addEventListener("click", () => {
-    document.querySelector(".items")?.classList.toggle("menu-open");
-    document.querySelector(".line")?.classList.toggle("menu-open");
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const menuToggle = document.querySelector(".menu-btn");
+    menuToggle?.addEventListener("click", () => {
+      document.querySelector(".items")?.classList.toggle("menu-open");
+      document.querySelector(".line")?.classList.toggle("menu-open");
+    });
   });
 </script>
