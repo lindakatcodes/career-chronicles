@@ -5,6 +5,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const formData = await request.formData();
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
+  const name = formData.get("displayname")?.toString();
 
   if (!email || !password) {
     return new Response(
@@ -16,6 +17,11 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const { error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        displayname: name,
+      },
+    },
   });
 
   if (error) {

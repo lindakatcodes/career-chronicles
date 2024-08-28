@@ -3,6 +3,8 @@ import type { UserMetadata } from "@supabase/supabase-js";
 import RootLayout from "../layouts/RootLayout.astro";
 import { supabase } from "../lib/supabase";
 import { POST } from "./api/auth/update.ts";
+import PostForm from "../components/PostForm.astro";
+import FormInput from "../components/FormInput.astro";
 
 const {
   data: { user },
@@ -38,31 +40,49 @@ if (Astro.request.method === "POST") {
 
 <RootLayout title="Profile">
   <h1>Profile</h1>
-  <p>Logged in with the email {email}</p>
-  <form method="POST" class="name-form">
-    <div>
-      <label for="displayname">Display name</label>
-      <input
-        type="text"
-        id="displayname"
-        name="displayname"
-        placeholder={metadata.displayname || ""}
-      />
-    </div>
-    <button type="button" class="cancel">Cancel changes</button>
-    <button type="submit" class="save">Save name change</button>
-  </form>
-  <form action="/api/auth/signout">
+  <p>Logged in with the email: <span class="email">{email}</span></p>
+  <PostForm
+    class="name-form"
+    submitBtnLabel="Save changes"
+    cancelBtnLabel="Cancel"
+  >
+    <FormInput
+      label="Display name"
+      type="text"
+      id="displayname"
+      placeholder={metadata.displayname || ""}
+    />
+  </PostForm>
+  <form action="/api/auth/signout" class="signout">
     <button type="submit">Sign out</button>
   </form>
 </RootLayout>
 
-<style></style>
+<style>
+  .email {
+    margin-left: 0.5rem;
+    color: var(--accentGreen);
+  }
 
-<script>
-  const cancelBtn = document.querySelector(".cancel");
-  cancelBtn?.addEventListener("click", () => {
-    const nameForm: HTMLFormElement = document.querySelector(".name-form")!;
-    nameForm && nameForm.reset();
-  });
-</script>
+  .signout button {
+    padding: 0.5rem 0;
+    font-weight: bold;
+    border-color: var(--accentGray);
+    background-color: var(--accentGray);
+    color: var(--background);
+    inline-size: 8rem;
+  }
+
+  @media (min-width: 768px) {
+    h1,
+    p {
+      max-width: 45dvw;
+      margin: 0 auto;
+    }
+
+    .signout {
+      max-width: 45dvw;
+      margin: 0.5rem auto;
+    }
+  }
+</style>

@@ -59,3 +59,7 @@ h3 {
   outline: 3px solid var(--accentGreen);
   outline-offset: 2px;
 }
+
+button:focus {
+  outline-color: var(--accentTan);
+}

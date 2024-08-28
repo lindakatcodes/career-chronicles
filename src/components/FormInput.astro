@@ -1,0 +1,22 @@
+---
+const { label, type, id, class: className, ...rest } = Astro.props;
+---
+
+<div class={className}>
+  <label for={id}>{label}</label>
+  <input type={type} name={id} id={id} {...rest} />
+</div>
+
+<style>
+  div {
+    inline-size: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  label {
+    text-transform: uppercase;
+    font-size: 0.875rem;
+  }
+</style>
