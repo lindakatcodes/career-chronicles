@@ -6,19 +6,18 @@ import { POST } from "./api/auth/update.ts";
 import PostForm from "../components/PostForm.astro";
 import FormInput from "../components/FormInput.astro";
 
+const { cookies } = Astro;
+const accessToken = cookies.get("sb-access-token");
+if (!accessToken) {
+  return Astro.redirect("/signin");
+}
+
 const {
   data: { user },
 } = await supabase.auth.getUser();
 
-let metadata: UserMetadata = {};
-let email = "";
-
-if (!user) {
-  Astro.redirect("/signin");
-} else {
-  metadata = user.user_metadata;
-  email = user.email ?? "";
-}
+let metadata: UserMetadata = user?.user_metadata ?? {};
+let email = user?.email ?? "";
 
 if (Astro.request.method === "POST") {
   try {
