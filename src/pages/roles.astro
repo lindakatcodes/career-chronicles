@@ -1,28 +1,77 @@
 ---
 import { supabase } from "../lib/supabase";
 import RootLayout from "../layouts/RootLayout.astro";
+import Button from "../components/Button.astro";
+import PostForm from "../components/PostForm.astro";
+import FormInput from "../components/FormInput.astro";
 
-// const {
-//   data: { user },
-// } = await supabase.auth.getUser();
+const {
+  data: { user },
+} = await supabase.auth.getUser();
 
-// console.log(user.id);
+const { data, error } = await supabase
+  .from("Roles")
+  .select()
+  .eq("user_id", user!.id);
+
+const hasData = data !== null && data.length > 1;
 ---
 
 <RootLayout title="Roles">
-  <div>
+  <div class="heading">
     <h1>Companies and Projects</h1>
     <p>
       A list of all the companies you've worked for and the projects you've
       worked on.
     </p>
   </div>
+  <div class="data">
+    {
+      error && (
+        <p>
+          Sorry, an error ocurred trying to get your role data. {error.message}
+        </p>
+      )
+    }
+    {!error && !hasData && <p>Add roles by filling out the form below.</p>}
+    {
+      hasData &&
+        data.forEach((role) => {
+          // <RoleCard role={role} />;
+          <p>you've got roles! {role}</p>;
+        })
+    }
+  </div>
+  <div class="role-form">
+    <PostForm submitBtnLabel="Add Role" cancelBtnLabel="Cancel">
+      <FormInput
+        label="Position"
+        type="text"
+        id="title"
+        placeholder="What role did you hold?"
+        required
+      />
+      <FormInput
+        label="Company or Project name"
+        type="text"
+        id="client"
+        placeholder="Who was this for?"
+        required
+      />
+      <FormInput label="Start Date" type="date" id="startDate" />
+      <FormInput label="End Date" type="date" id="endDate" />
+    </PostForm>
+  </div>
 </RootLayout>
 
 <style>
+  .heading {
+    margin-bottom: 2rem;
+  }
+
   h1 {
     color: var(--accentTan);
-    font-size: 3rem;
+    font-size: 2.875rem;
     text-align: center;
   }
 

@@ -2,7 +2,7 @@
 import RootLayout from "../layouts/RootLayout.astro";
 import { supabase } from "../lib/supabase";
 
-const { cookies } = Astro;
+const { cookies, redirect } = Astro;
 let isSignedIn = false;
 let username = "";
 
