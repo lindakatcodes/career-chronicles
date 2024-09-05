@@ -1,9 +1,7 @@
 ---
 import ThemeSwitch from "./ThemeSwitch.vue";
 
-const { cookies } = Astro;
-const accessToken = cookies.get("sb-access-token");
-const isLoggedIn = accessToken ? true : false;
+const isSignedIn = Astro.locals.isSignedIn;
 ---
 
 <header>
@@ -13,10 +11,10 @@ const isLoggedIn = accessToken ? true : false;
   <div class="items">
     <nav>
       <a href="/">Home</a>
-      {isLoggedIn && <a href="/projects">Projects</a>}
+      {isSignedIn && <a href="/roles">Roles</a>}
     </nav>
     {
-      isLoggedIn ? (
+      isSignedIn ? (
         <a href="/profile" class="auth">
           Profile
         </a>

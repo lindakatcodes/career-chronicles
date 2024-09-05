@@ -4,12 +4,7 @@ import PostForm from "../components/PostForm.astro";
 import RootLayout from "../layouts/RootLayout.astro";
 import { POST } from "./api/auth/signin.ts";
 
-const { cookies } = Astro;
-
-const accessToken = cookies.get("sb-access-token");
-const refreshToken = cookies.get("sb-refresh-token");
-
-if (accessToken && refreshToken) {
+if (Astro.locals.isSignedIn) {
   return Astro.redirect("/");
 }
 

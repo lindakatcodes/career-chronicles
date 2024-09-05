@@ -2,21 +2,14 @@
 import { supabase } from "../lib/supabase";
 import RootLayout from "../layouts/RootLayout.astro";
 
-// auth guard check
-const { cookies } = Astro;
-const accessToken = cookies.get("sb-access-token");
-if (!accessToken) {
-  return Astro.redirect("/signin");
-}
+// const {
+//   data: { user },
+// } = await supabase.auth.getUser();
 
-const {
-  data: { user },
-} = await supabase.auth.getUser();
-
-console.log(user.id);
+// console.log(user.id);
 ---
 
-<RootLayout title="Projects">
+<RootLayout title="Roles">
   <div>
     <h1>Companies and Projects</h1>
     <p>
